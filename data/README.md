@@ -1,7 +1,5 @@
 # Data files
 
-These are all summary data and cannot be used to identify individuals
-
 - `subject_age.txt` is a 2 column data frame with the subject name and
   the (ordered) ages of data collection.
 
@@ -20,6 +18,8 @@ These are all summary data and cannot be used to identify individuals
   symmetric CpG sites. These are only calcualted for the annotated
   "hor", "dhor" and "mon" elements, which roughly span contiguous
   intervals through the centromere on each chromosome.
+
+- `sample_cpg_meth_centromere_CHM13_ambig.txt`
 
 - `sample_hmr_nocensat_CHM13.txt` gives the HMR summary stats for each
   sample, encoded as in the file above. The summary stats are the
