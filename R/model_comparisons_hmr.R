@@ -13,7 +13,7 @@ stopifnot("column headings must be subject coverage count size" =
 X$age <- ages_table$age
 
 use_reml <- TRUE # use restricted max likelihood
-n_simulations <- 1000000 # do 1M simulations for exactRLRT tests
+n_simulations <- 10000000 # do 1M simulations for exactRLRT tests
 
 ### First test
 ### H0: HMR coverage is independent of age
