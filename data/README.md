@@ -19,7 +19,13 @@
   "hor", "dhor" and "mon" elements, which roughly span contiguous
   intervals through the centromere on each chromosome.
 
-- `sample_cpg_meth_centromere_CHM13_ambig.txt`
+- `sample_cpg_meth_centromere_CHM13_ambig.txt` is similar to
+  `sample_cpg_meth_centromere_CHM13.txt`, but methylation levels were
+  calculated by assigning ambiguous reads randomly to one of its optimal
+  mapping locations in the genome. These levels are therefore calculated
+  under the assumption that, if a read maps to a centromeric region,
+  then its other mapping locations are, with high probability, also
+  originating from the centromere.
 
 - `sample_hmr_nocensat_CHM13.txt` gives the HMR summary stats for each
   sample, encoded as in the file above. The summary stats are the
