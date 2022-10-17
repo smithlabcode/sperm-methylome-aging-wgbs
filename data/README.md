@@ -1,37 +1,46 @@
 # Data files
 
-- `subject_age.txt` is a 2 column data frame with the subject name and
-  the (ordered) ages of data collection.
+- `sample_donor_age.txt` is a 3 column data frame with the sample
+  id, the donor id, and the age for each sample.
 
-- `sample_cpg_meth_CHM13.txt` gives the methylation levels for each
-  sample, which is indicated by the subject id (0-9) and the order in
-  which the subject appears. This depends on order, but also means
-  this file can include the subject id, built into filenames, without
-  the ages at the time this file is built. Similar for the other files
-  below with info about each sample. The methylation levels in this
-  file are for the symmetric CpG sites, which should not matter for
-  the weighted mean methylation, but might have a slight impact on the
+- `cpg_meth_CHM13.txt` gives the methylation levels for each sample,
+  which is indicated by the sample id. Each row also has the donor id
+  and the age for the sample. The methylation levels in this file are
+  for the symmetric CpG sites, which should not matter for the
+  weighted mean methylation, but might have a slight impact on the
   estimate of the mean and fractional methylation.
 
-- `sample_cpg_meth_centromere_CHM13.txt` gives the methylation levels
-  inside the centromeres for each sample. The levels are as above, for
-  symmetric CpG sites. These are only calcualted for the annotated
-  "hor", "dhor" and "mon" elements, which roughly span contiguous
-  intervals through the centromere on each chromosome.
+- `cpg_meth_centromere_CHM13.txt` has the same structure as the
+  `cpg_meth_CHM13.txt` file. The difference is that methylation levels
+  were obtained from the centromeres. The centromere is defined as the
+  part of the genome contained in the `censat` annotation, excluding
+  those elements labeled as `ct` which "centromeric transition
+  regions". The levels are as above, for symmetric CpG sites. The vast
+  majority of the data here comes from CpG sites in contiguous
+  intervals, one for each chromosome, but we have retained any
+  isolated satellite sequences in the annotation. Isolated centromeric
+  satellites tend to be very small.
 
-- `sample_cpg_meth_centromere_CHM13_ambig.txt` is similar to
-  `sample_cpg_meth_centromere_CHM13.txt`, but methylation levels were
-  calculated by assigning ambiguous reads randomly to one of its optimal
-  mapping locations in the genome. These levels are therefore calculated
-  under the assumption that, if a read maps to a centromeric region,
-  then its other mapping locations are, with high probability, also
-  originating from the centromere.
+- `cpg_meth_centromere_CHM13_ambig.txt` is similar to
+  `cpg_meth_centromere_CHM13.txt`, but methylation levels were
+  calculated by assigning ambiguous reads randomly to one of its
+  optimal mapping locations in the genome. These levels are therefore
+  calculated under the assumption that, if a read maps to a
+  centromeric region, then its other mapping locations are, with high
+  probability, also within a centromere. The weighted mean methylation
+  should be similar to what would be obtained if each read's true
+  mapping location were known, or if each read were mapped
+  fractionally to each possible mapping location.
 
-- `sample_hmr_nocensat_CHM13.txt` gives the HMR summary stats for each
-  sample, encoded as in the file above. The summary stats are the
-  total sum of sizes of the HMRs, their number, and their average size
-  (the last of which is redundant). The "nocentromere" means no
-  satellite of any type annotated among all the censat. The HMRs in
-  healthy somatic cells correspond to transcriptional regulatory
-  regions, promoters and enhancers (and maybe insulators). In sperm,
-  the same seems to hold if we exclude the centromeres.
+- `hmr_nocensat_CHM13.txt` gives the HMR summary stats for each sample
+  indicated by the sample id. Each row also has the donor id and the
+  age for the corresponding sample. The summary stats are the total
+  sum of sizes of the HMRs ("coverage"), their number ("count"), and
+  their mean size, which is redundant given the other two. The
+  "nocensat" means no CpGs were included from any centromeric
+  satellite of any type in the annotation. This excludes even the "ct"
+  elements, which do not seem to behave like the other elements within
+  the centromere annotations. The HMRs in healthy somatic cells
+  correspond to transcriptional regulatory regions, promoters and
+  enhancers (and maybe insulators). In sperm, the same seems to hold
+  if we exclude the centromeres.
