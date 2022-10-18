@@ -19,7 +19,6 @@
 
 plot_mixed_model <- function(input_filename,
                              the_covariate,
-                             ages_filename,
                              output_filename = NULL) {
 
   library(lmerTest) # Mixed model package
@@ -30,15 +29,9 @@ plot_mixed_model <- function(input_filename,
   stopifnot("Specified covariate not in input file" =
               is.element(the_covariate, names(X)))
 
-  ages_table <- read.table(ages_filename, header=T)
-  X$age <- ages_table$age
-
-  stopifnot("Mismatching subjects between input files" =
-              all(ages_table$subject==X$subject))
-
   n_observations <- nrow(X)
-  subject_names <- unique(X$subject)
-  n_subjects <- length(subject_names)
+  donor_names <- unique(X$donor)
+  n_donors <- length(donor_names)
 
   ## Define the colors
   col_vector <- brewer.pal(10, name='Paired')
@@ -49,7 +42,7 @@ plot_mixed_model <- function(input_filename,
   X[, the_covariate] <- scale(X[, the_covariate])
 
   ## create the formula and fit the mixed model
-  the_formula <- as.formula(paste(the_covariate, "~ age + (1|subject)"))
+  the_formula <- as.formula(paste(the_covariate, "~ age + (1|donor)"))
   use_reml <- TRUE # use restricted max likelihood
   mixed_model <- lmer(the_formula, data=X, REML=use_reml)
 
@@ -67,41 +60,41 @@ plot_mixed_model <- function(input_filename,
   ### Make an empty plot with the right axes
   plot(c(), xlim=x_limits, ylim=y_limits, xlab="age", ylab=the_covariate)
 
-  ### keep an estimate of the intercept for each subject
+  ### keep an estimate of the intercept for each donor
   subj_intercepts <-
-    data.frame(row.names=subject_names, intr=rep(0, n_subjects))
+    data.frame(row.names=donor_names, intr=rep(0, n_donors))
 
-  ### plot the line for each subject
-  for (i in 1:n_subjects) {
+  ### plot the line for each donor
+  for (i in 1:n_donors) {
 
-    ## j gives the indices for this subject among all observations
-    j <- which(rownames(coef(mixed_model)$subject) == subject_names[i])
+    ## j gives the indices for this donor among all observations
+    j <- which(rownames(coef(mixed_model)$donor) == donor_names[i])
     ## in coef for the mixed model, [1] is intercept and [2] is slope
-    subj_intercept <- coef(mixed_model)$subject[[1]][j]*covar_sd + covar_mean
-    subj_slope <- coef(mixed_model)$subject[[2]][j]*covar_sd
+    subj_intercept <- coef(mixed_model)$donor[[1]][j]*covar_sd + covar_mean
+    subj_slope <- coef(mixed_model)$donor[[2]][j]*covar_sd
 
-    ## add the estimated line for this subject to the plot
+    ## add the estimated line for this donor to the plot
     abline(subj_intercept, subj_slope, col=col_vector[i])
 
-    ## get the intercept for the current subject
-    subj_intercepts[subject_names[i], ] <- subj_intercept
+    ## get the intercept for the current donor
+    subj_intercepts[donor_names[i], ] <- subj_intercept
 
-    ## Y is observations for current subject; avoids index arithmetic
-    Y <- subset(X, subject == subject_names[i])
-    ## add the observed points for this subject to the plot
+    ## Y is observations for current donor; avoids index arithmetic
+    Y <- subset(X, donor == donor_names[i])
+    ## add the observed points for this donor to the plot
     points(Y$age[1], Y[, the_covariate][1], col=col_vector[i], pch=19)
     points(Y$age[2], Y[, the_covariate][2], col=col_vector[i], pch=19)
   }
 
-  ## estimate value for each observation: for that subject, the
+  ## estimate value for each observation: for that donor, the
   ## y-coordinate for the each
   estimated_values <- rep(0, n_observations)
   for (i in 1:n_observations) {
-    estimated_values[i] <- subj_intercepts[X$subject[i], ] + subj_slope*X$age[i]
+    estimated_values[i] <- subj_intercepts[X$donor[i], ] + subj_slope*X$age[i]
   }
 
   ## draw vertical line segments connecting the observed values and the
-  ## line for that subject (the estimate)
+  ## line for that donor (the estimate)
   segments(X$age, X[, the_covariate], X$age,
            estimated_values, col=rep(col_vector, each=2))
 
