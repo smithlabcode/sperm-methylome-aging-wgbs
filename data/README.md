@@ -44,3 +44,9 @@
   correspond to transcriptional regulatory regions, promoters and
   enhancers (and maybe insulators). In sperm, the same seems to hold
   if we exclude the centromeres.
+
+- `centromeric_satellites_CHM13.bed` a 3-column bed format file
+  containing the centromeric satellites from the censat annotation
+  available from UCSC for CHM13 v2.0, but with the exclusion of the
+  "ct" elements. The intervals are collapsed/merged so there are 923
+  lines in the file, covering 240521368 bp.
