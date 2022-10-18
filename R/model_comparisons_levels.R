@@ -17,7 +17,6 @@
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 model_comparisons_levels <- function(input_filename, # file with data for samples
-                                     ages_filename, # file with ages for samples
                                      # do 1M simulations for exactRLRT tests
                                      n_simulations = 1000000) {
 
@@ -25,15 +24,10 @@ model_comparisons_levels <- function(input_filename, # file with data for sample
   library(RLRsim) # For testing mixed models by simulation
 
   X <- read.table(input_filename, header=TRUE)
-  ages_table <- read.table(ages_filename, header=TRUE)
 
-  stopifnot("subjects must be identical between input files" =
-              X$subject == ages_table$subject)
-
-  stopifnot("column headings must be subject mean weighted fractional" =
-              c('subject', 'mean', 'weighted', 'fractional') == colnames(X))
-
-  X$age <- ages_table$age
+  stopifnot("column headings must be sample donor age mean weighted fractional"
+    = c('sample', 'donor', 'age', 'mean', 'weighted', 'fractional')
+    == colnames(X))
 
   use_reml <- TRUE # use restricted max likelihood
 
@@ -41,7 +35,7 @@ model_comparisons_levels <- function(input_filename, # file with data for sample
   ## H0: mean methylation is independent of age
 
   X$mean <- scale(X$mean)
-  mean_model <- lmer(mean ~ age + (1|subject), data = X, REML=use_reml)
+  mean_model <- lmer(mean ~ age + (1|donor), data = X, REML=use_reml)
   print(summary(mean_model))
   print(exactRLRT(mean_model, nsim=n_simulations))
 
@@ -49,7 +43,7 @@ model_comparisons_levels <- function(input_filename, # file with data for sample
   ## H0: weighted mean methylation is independent of age
 
   X$weighted <- scale(X$weighted)
-  weighted_model <- lmer(weighted ~ (1|subject) + age, data = X, REML=use_reml)
+  weighted_model <- lmer(weighted ~ (1|donor) + age, data = X, REML=use_reml)
   print(summary(weighted_model))
   print(exactRLRT(weighted_model, nsim=n_simulations))
 
@@ -57,7 +51,7 @@ model_comparisons_levels <- function(input_filename, # file with data for sample
   ## H0: fraction methylated is independent of age
 
   X$fractional <- scale(X$fractional)
-  fractional_model <- lmer(fractional ~ (1|subject) + age, data = X, REML=use_reml)
+  fractional_model <- lmer(fractional ~ (1|donor) + age, data = X, REML=use_reml)
   print(summary(fractional_model))
   print(exactRLRT(fractional_model, nsim=n_simulations))
 }
