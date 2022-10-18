@@ -1,6 +1,4 @@
-## plot_mixed_model.R: plots mixed models for a very specific kind of
-## data. This script is written to run from command line instead of
-## within the R interpreter.
+## plot_mixed_model.R: plots mixed models for a specific kind of data.
 ##
 ## Copyright (C) 2022 Andrew D Smith and Guilherme de Sena Brandine
 ##
@@ -61,7 +59,7 @@ plot_mixed_model <- function(input_filename,
   plot(c(), xlim=x_limits, ylim=y_limits, xlab="age", ylab=the_covariate)
 
   ### keep an estimate of the intercept for each donor
-  subj_intercepts <-
+  donor_intercepts <-
     data.frame(row.names=donor_names, intr=rep(0, n_donors))
 
   ### plot the line for each donor
@@ -70,14 +68,14 @@ plot_mixed_model <- function(input_filename,
     ## j gives the indices for this donor among all observations
     j <- which(rownames(coef(mixed_model)$donor) == donor_names[i])
     ## in coef for the mixed model, [1] is intercept and [2] is slope
-    subj_intercept <- coef(mixed_model)$donor[[1]][j]*covar_sd + covar_mean
-    subj_slope <- coef(mixed_model)$donor[[2]][j]*covar_sd
+    donor_intercept <- coef(mixed_model)$donor[[1]][j]*covar_sd + covar_mean
+    donor_slope <- coef(mixed_model)$donor[[2]][j]*covar_sd
 
     ## add the estimated line for this donor to the plot
-    abline(subj_intercept, subj_slope, col=col_vector[i])
+    abline(donor_intercept, donor_slope, col=col_vector[i])
 
     ## get the intercept for the current donor
-    subj_intercepts[donor_names[i], ] <- subj_intercept
+    donor_intercepts[donor_names[i], ] <- donor_intercept
 
     ## Y is observations for current donor; avoids index arithmetic
     Y <- subset(X, donor == donor_names[i])
@@ -90,7 +88,7 @@ plot_mixed_model <- function(input_filename,
   ## y-coordinate for the each
   estimated_values <- rep(0, n_observations)
   for (i in 1:n_observations) {
-    estimated_values[i] <- subj_intercepts[X$donor[i], ] + subj_slope*X$age[i]
+    estimated_values[i] <- donor_intercepts[X$donor[i], ] + donor_slope*X$age[i]
   }
 
   ## draw vertical line segments connecting the observed values and the
