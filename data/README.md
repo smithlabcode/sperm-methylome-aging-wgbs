@@ -31,7 +31,7 @@
   should be similar to what would be obtained if each read's true
   mapping location were known, or if each read were mapped
   fractionally to each possible mapping location.
-
+<<<<<<< HEAD
 - `hmr_nocensat_CHM13.txt` gives the HMR summary stats for each sample
   indicated by the sample id. Each row also has the donor id and the
   age for the corresponding sample. The summary stats are the total
@@ -50,3 +50,8 @@
   available from UCSC for CHM13 v2.0, but with the exclusion of the
   "ct" elements. The intervals are collapsed/merged so there are 923
   lines in the file, covering 240521368 bp.
+
+- `sample_10kb_bins.txt` gives the average methylation in 10 kbp
+  bins in the human genome across all samples, excluding bins for
+  which at least one of the samples does not contain any reads
+  (in other words, only using samples with data in all samples).
