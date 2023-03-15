@@ -31,7 +31,7 @@
   should be similar to what would be obtained if each read's true
   mapping location were known, or if each read were mapped
   fractionally to each possible mapping location.
-<<<<<<< HEAD
+
 - `hmr_nocensat_CHM13.txt` gives the HMR summary stats for each sample
   indicated by the sample id. Each row also has the donor id and the
   age for the corresponding sample. The summary stats are the total
