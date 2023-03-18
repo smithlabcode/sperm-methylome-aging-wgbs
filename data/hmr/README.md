@@ -13,3 +13,11 @@
   enhancers (and maybe insulators). In sperm, the same seems to hold
   if we exclude the centromeres.
 
+ - `hmr_nocensat_CHM13_promoters.txt` is similar to
+  `hmr_nocensat_CHM13.txt`, but only considers HMRs that have a
+   non-empty overlap with transcription start sites in the CHM13
+   v2.0 RefSeq annotation.
+
+ - `hmr_nocensat_CHM13_no_promoters.txt` is also similar to
+   `hmr_nocensat_CHM13.txt`, but only uses HMRs that do not overlap
+   transcription start sites in the CHM13 v2.0 RefSeq annotation.
