@@ -11,9 +11,6 @@
    `cpg_methylation_CHM13.txt` but including reads that map
     ambiguously to the reference genome.
 
- - `cpg_methylation_hg38.txt` shows the methylation level for each
-   sample with reads mapped to the GRCh38.p13 reference genome.
-
  - `cpg_methylation_nocensat_CHM13.txt` shows methylation levels
    excluding centromeric satellites. The regions excluded are shown in
    file `centromeric_satellites_CHM13.bed` under the `centromere`
