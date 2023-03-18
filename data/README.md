@@ -27,3 +27,9 @@
 
 - `sample_donor_age.txt` is a 3 column data frame with the sample
   id, the donor id, and the age for each sample.
+
+- `data_quality.txt` shows the summary statistics for mapping and
+  quality control metrics for whole genome bisulfite sequencing data
+  for each dataset. These include: percentage of reads mapped
+  ambiguously and uniquely, bisulfite conversion rate, coverage and
+  depth of CpGs, and upper bound on CpG->TpG mutations.
