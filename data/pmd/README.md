@@ -1,4 +1,4 @@
-# PMD data
+# Data files
 
 This directory contains data pertinet to section 2.3 of the
 manuscript. Files depict the average methylation values of 100 kb bins
