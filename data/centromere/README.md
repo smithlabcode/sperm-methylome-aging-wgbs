@@ -6,19 +6,19 @@
   "ct" elements. The intervals are collapsed/merged so there are 923
   lines in the file, covering 240521368 bp.
 
-- `cpg_meth_centromere_CHM13.txt` has the same structure as the
-  `cpg_meth_CHM13.txt` file. The difference is that methylation levels
-  were obtained from the centromeres. The centromere is defined as the
-  part of the genome contained in the `censat` annotation, excluding
-  those elements labeled as `ct` which "centromeric transition
-  regions". The levels are as above, for symmetric CpG sites. The vast
-  majority of the data here comes from CpG sites in contiguous
-  intervals, one for each chromosome, but we have retained any
-  isolated satellite sequences in the annotation. Isolated centromeric
-  satellites tend to be very small.
+- `cpg_methylation_centromere_CHM13.txt` has the same structure as the
+  `cpg_methylation_CHM13.txt` file. The difference is that methylation
+  levels were obtained from the centromeres. The centromere is defined
+  as the part of the genome contained in the `censat` annotation,
+  excluding those elements labeled as `ct` which "centromeric
+  transition regions". The levels are as above, for symmetric CpG
+  sites. The vast majority of the data here comes from CpG sites in
+  contiguous intervals, one for each chromosome, but we have retained
+  any isolated satellite sequences in the annotation. Isolated
+  centromeric satellites tend to be very small.
 
-- `cpg_meth_centromere_CHM13_ambig.txt` is similar to
-  `cpg_meth_centromere_CHM13.txt`, but methylation levels were
+- `cpg_methylation_centromere_CHM13_ambig.txt` is similar to
+  `cpg_methylation_centromere_CHM13.txt`, but methylation levels were
   calculated by assigning ambiguous reads randomly to one of its
   optimal mapping locations in the genome. These levels are therefore
   calculated under the assumption that, if a read maps to a
@@ -28,15 +28,15 @@
   mapping location were known, or if each read were mapped
   fractionally to each possible mapping location.
 
- - `cpg_methylation_centromere_acrocentric_CHM13.txt` shows the
-   weighted average methylation level using only acrocentric
-   chromosomes (13-15, 21 and 22)
- 
- - `cpg_methylation_rdna_CHM13.txt` shows the methylation levels in
-   regions annotated by the telomere-to-telomere consortium as rDNA
-   regions. Methylation for this file is calculated using only
-   uniquely mapped reads
+- `cpg_methylation_centromere_acrocentric_CHM13.txt` shows the
+  weighted average methylation level using only acrocentric
+  chromosomes (13-15, 21 and 22)
 
- - `cpg_methylation_rdna_CHM13_ambig.txt` is the same as
-   `cpg_methylation_rdna_CHM13.txt` but includes reads that map
-    ambiguously to CHM13 but uniquely to the rDNA annotation.
+- `cpg_methylation_rdna_CHM13.txt` shows the methylation levels in
+  regions annotated by the telomere-to-telomere consortium as rDNA
+  regions. Methylation for this file is calculated using only uniquely
+  mapped reads
+
+- `cpg_methylation_rdna_CHM13_ambig.txt` is the same as
+  `cpg_methylation_rdna_CHM13.txt` but includes reads that map
+  ambiguously to CHM13 but uniquely to the rDNA annotation.
